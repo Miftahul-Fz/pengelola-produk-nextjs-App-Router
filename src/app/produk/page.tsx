@@ -1,6 +1,9 @@
 "use client"
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import "bootstrap/dist/css/bootstrap.min.css"
 
 interface Produk {
     id: number,
@@ -10,8 +13,23 @@ interface Produk {
 }
 
 export default function IndexProduk() {
-    const [produks, setProduk] = useState<Produk[]>([]);;
-    
+    const [produks, setProduk] = useState<Produk[]>([]);
+
+    const { data: session, status }: { data: any, status: string } = useSession();
+    const router = useRouter();
+    console.log('session: ', session?.user);
+    console.log('status: ', status);
+
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+            router.push('/');
+        } else {
+            if (session !== undefined && session?.user.role !== 'admin') {
+                router.push('/');
+            }
+        }
+    }, [router, session, session?.user.role, status]);
+
     useEffect(() => {
     const fetchBarang = async () => {
         try {
@@ -22,7 +40,7 @@ export default function IndexProduk() {
             })
             if (respone.ok) {
                 const dataProduk = await respone.json();
-                console.log('produk : ', dataProduk.data)
+                // console.log('produk : ', dataProduk.data)
                 setProduk(dataProduk.data)
                 return dataProduk.data;
             } else {
@@ -33,7 +51,6 @@ export default function IndexProduk() {
             throw error;
         }; 
     }
-
         fetchBarang()
     }, [setProduk])
 
@@ -62,11 +79,14 @@ export default function IndexProduk() {
             <div>
                 <h3>daftar Produk</h3>
             </div>
+            <br />
             <div>
                 <Link href={'produk/store'}>
                 <button>tambah data</button>
                 </Link>
-                <table border={1} width="100%">
+                <br />
+                <br />
+                <table className="table table-bordered border-primary">
                     <thead>
                         <tr>
                             <th>no</th>

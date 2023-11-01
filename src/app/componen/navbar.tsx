@@ -1,18 +1,25 @@
 "use client"
-import "bootstrap/dist/css/bootstrap.min.css"
+import React from 'react';
+import {
+  MDBContainer,
+  MDBNavbar,
+  MDBNavbarBrand
+} from 'mdb-react-ui-kit';
 import { signIn, signOut, useSession } from "next-auth/react";
 
-export default function Home() {
+export default function Navbar() {
   const { status }: { status: string } = useSession();
   return (
-    <div>
-      <h1>halaman dashboard</h1>
-      {status === 'authenticated' ? (
+    <>
+      <MDBNavbar light bgColor='success'>
+        <MDBContainer fluid>
+          <MDBNavbarBrand  tag="span" className='mb-0 h1'>Apliksi Pengolaan Produk</MDBNavbarBrand>
+          {status === 'authenticated' ? (
         <button 
         className="btn btn-success btn-sm cursor-pointer" 
         onClick={() => signOut()}
       > 
-        LOGOUT 
+        LOGOUT  
       </button>
       ) : (
         <button 
@@ -22,6 +29,8 @@ export default function Home() {
         LOGIN 
       </button>
       )}
-    </div>
-  )
+        </MDBContainer>
+      </MDBNavbar>
+    </>
+  );
 }
