@@ -33,11 +33,8 @@ export default function Login() {
       console.error(error);
     }
   }
-
-
-
   return (
-    <div className="App">
+    <div className="App mt-5">
       <div className="container">
         <div className="row d-flex justify-content-center">
           <div className="col-md-4">
