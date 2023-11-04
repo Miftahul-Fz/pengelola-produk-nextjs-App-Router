@@ -25,7 +25,7 @@ export default function EditProduk() {
 
     useEffect(() => {
         if (id) {
-          fetch(`http://localhost:3000/api/produk/:?id=${id}`, {
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produk/:?id=${id}`, {
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
@@ -45,7 +45,7 @@ export default function EditProduk() {
     }, [id]);
 
     const onSubmit: SubmitHandler<formProduk> = (data) => {
-        fetch(`http://localhost:3000/api/produk/:?id=${id}`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produk/:?id=${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

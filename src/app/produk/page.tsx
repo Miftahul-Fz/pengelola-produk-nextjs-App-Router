@@ -33,9 +33,9 @@ export default function IndexProduk() {
     useEffect(() => {
     const fetchBarang = async () => {
         try {
-            const respone = await fetch('http://localhost:3000/api/produk', {
+            const respone = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produk`, {
                 headers: {
-                    accept: 'application/json'
+                    accept: 'application/json' 
                 }
             })
             if (respone.ok) {
@@ -56,7 +56,7 @@ export default function IndexProduk() {
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/produk/:?id=${id}`,{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produk/:?id=${id}`,{
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
