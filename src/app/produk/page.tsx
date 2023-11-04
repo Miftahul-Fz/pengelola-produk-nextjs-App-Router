@@ -91,7 +91,7 @@ export default function IndexProduk() {
                         <tr>
                             <th>no</th>
                             <th>nama Produk</th>
-                            <th>jenis_prodiuk</th>
+                            <th>jenis_produk</th>
                             <th>stok</th>
                             <th>tags</th>
                         </tr>
